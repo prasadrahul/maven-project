@@ -10,6 +10,10 @@ pipeline {
          pollSCM('*/1 * * * *')
      }
 
+         tools {
+             maven 'localMaven'
+         }
+
 stages{
             stage('Build'){
                 steps {
