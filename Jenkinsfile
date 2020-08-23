@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     parameters {
-         string(name: 'tomcat_dev', defaultValue: '/home/prasad/JenkinsDemo/dev_tomcat', description: 'Staging Server')
-         string(name: 'tomcat_prod', defaultValue: '/home/prasad/JenkinsDemo/prod_tomcat', description: 'Production Server')
+         string(name: 'tomcat_dev', defaultValue: 'prasad@localhost:/home/prasad/JenkinsDemo/dev_tomcat', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: 'prasad@localhost:/home/prasad/JenkinsDemo/prod_tomcat', description: 'Production Server')
     }
 
     triggers {
@@ -31,13 +31,13 @@ stages{
                 parallel{
                     stage ('Deploy to Staging'){
                         steps {
-                            sh "cp **/target/*.war ${params.tomcat_dev}/webapps"
+                            sh "scp **/target/*.war ${params.tomcat_dev}/webapps"
                         }
                     }
 
                     stage ("Deploy to Production"){
                         steps {
-                            sh "cp **/target/*.war ${params.tomcat_prod}/webapps"
+                            sh "scp **/target/*.war ${params.tomcat_prod}/webapps"
                         }
                     }
                 }
